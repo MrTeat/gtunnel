@@ -1,20 +1,15 @@
 @echo off
 REM GTunnel Windows Batch Helper
-REM This script helps Windows users avoid the "The system cannot find the file -u" error
-REM by ensuring the gtunnel command is properly invoked.
+REM This script helps Windows users run gtunnel by automatically using npx if needed
 
 REM Check if gtunnel is available
 where gtunnel >nul 2>&1
-if %ERRORLEVEL% NEQ 0 (
-    echo Error: gtunnel is not installed or not in PATH
+if %ERRORLEVEL% EQU 0 (
+    REM gtunnel is installed, use it directly
+    gtunnel start %*
+) else (
+    REM gtunnel not found, try using npx
+    echo gtunnel not found in PATH, using npx...
     echo.
-    echo Please install gtunnel first:
-    echo   npm install -g gtunnel
-    echo.
-    echo Or use npx to run it without installation:
-    echo   npx gtunnel start %*
-    exit /b 1
+    npx gtunnel start %*
 )
-
-REM Forward all arguments to gtunnel start
-gtunnel start %*

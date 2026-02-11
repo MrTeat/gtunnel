@@ -51,24 +51,50 @@ GTunnel is a production-ready, high-performance tunnel solution fully compatible
 
 ## Installation
 
+### Option 1: Global Installation (Recommended)
+
+Install gtunnel globally to use it from anywhere:
+
 ```bash
 npm install -g gtunnel
 ```
 
+After installation, verify it's working:
+```bash
+gtunnel --version
+```
+
+### Option 2: Use npx (No Installation Required)
+
+Run gtunnel without installing it:
+
+```bash
+npx gtunnel start -u myuser -k mykey --region us-west --tunnel-name my-tunnel
+```
+
+This downloads and runs gtunnel on-demand. Perfect for CI/CD or trying it out.
+
 ### Windows Users
 
-After installation, you can either:
+After global installation, if you see `'gtunnel' is not recognized`:
 
-1. **Use the gtunnel command directly** (recommended):
+1. **Restart your terminal** - This refreshes your PATH
+2. **Verify npm global path is in PATH**:
    ```bash
-   gtunnel start -u myuser -k mykey
+   npm config get prefix
+   ```
+   Ensure this directory (e.g., `C:\Users\YourUser\AppData\Roaming\npm`) is in your system PATH.
+
+3. **Use npx as a fallback**:
+   ```bash
+   npx gtunnel start
    ```
 
-2. **Use the included helper scripts** for convenience:
-   - `start.bat` for Command Prompt
-   - `start.ps1` for PowerShell
-   
-   These scripts ensure the command is properly invoked and provide helpful error messages.
+You can also use the included helper scripts:
+- `start.bat` for Command Prompt
+- `start.ps1` for PowerShell
+
+These scripts automatically use npx if gtunnel is not in PATH.
 
 ## Quick Start
 
@@ -342,6 +368,50 @@ gtunnel start -u oauth-wfuller894-22ca3 -k a19e5030-ec22-4eb4-a5d9-29ca7c15e6db 
 ```
 
 The `gtunnel` prefix is required to invoke the GTunnel CLI tool.
+
+### Windows: "gtunnel is not recognized as an internal or external command"
+
+If you see this error:
+```
+'gtunnel' is not recognized as an internal or external command,
+operable program or batch file.
+```
+
+This means gtunnel is either not installed or not in your system PATH.
+
+**Solution 1: Install gtunnel globally**
+```bash
+npm install -g gtunnel
+```
+
+After installation, restart your command prompt/PowerShell and try again.
+
+**Solution 2: Use npx (no installation required)**
+```bash
+npx gtunnel start -u oauth-wfuller894-22ca3 -k a19e5030-ec22-4eb4-a5d9-29ca7c15e6db --region us-west --tunnel-name my-tunnel
+```
+
+**Solution 3: Add npm global binaries to PATH**
+
+If gtunnel is installed but not recognized:
+
+1. Find your npm global path:
+   ```bash
+   npm config get prefix
+   ```
+
+2. Add the following to your PATH:
+   - For npm prefix at `C:\Users\YourUser\AppData\Roaming\npm`, add:
+     - `C:\Users\YourUser\AppData\Roaming\npm`
+   
+3. Restart your terminal and try again.
+
+**Solution 4: Run from the node_modules directory**
+
+If installed locally in a project:
+```bash
+npx gtunnel start -u oauth-wfuller894-22ca3 -k a19e5030-ec22-4eb4-a5d9-29ca7c15e6db --region us-west --tunnel-name my-tunnel
+```
 
 ### Windows PowerShell Note
 

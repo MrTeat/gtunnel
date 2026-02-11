@@ -117,6 +117,30 @@ start -u oauth-wfuller894-22ca3 -k a19e5030-ec22-4eb4-a5d9-29ca7c15e6db --region
 gtunnel start -u oauth-wfuller894-22ca3 -k a19e5030-ec22-4eb4-a5d9-29ca7c15e6db --region us-west --tunnel-name my-tunnel
 ```
 
+### Windows: "gtunnel is not recognized"
+
+Jika Anda melihat error:
+```
+'gtunnel' is not recognized as an internal or external command
+```
+
+**Solusi:**
+
+1. **Install global dan restart terminal:**
+   ```bash
+   npm install -g gtunnel
+   ```
+   Kemudian tutup dan buka kembali terminal Anda.
+
+2. **Gunakan npx (tidak perlu instalasi):**
+   ```bash
+   npx gtunnel start -u myuser -k mykey --tunnel-name my-tunnel
+   ```
+
+3. **Gunakan script helper** (otomatis menggunakan npx jika diperlukan):
+   - `start.bat` untuk Command Prompt
+   - `start.ps1` untuk PowerShell
+
 ### Windows Command Prompt vs PowerShell
 
 **Command Prompt (cmd.exe):**
@@ -127,6 +151,11 @@ gtunnel start -u myuser -k mykey --tunnel-name my-tunnel
 **PowerShell:**
 ```powershell
 gtunnel start -u myuser -k mykey --tunnel-name my-tunnel
+```
+
+Jika `gtunnel` tidak dikenali, gunakan `npx`:
+```powershell
+npx gtunnel start -u myuser -k mykey --tunnel-name my-tunnel
 ```
 
 Jika `gtunnel` tidak dikenali, pastikan npm global binaries ada di PATH atau gunakan `npx`:
