@@ -158,11 +158,6 @@ Jika `gtunnel` tidak dikenali, gunakan `npx`:
 npx gtunnel start -u myuser -k mykey --tunnel-name my-tunnel
 ```
 
-Jika `gtunnel` tidak dikenali, pastikan npm global binaries ada di PATH atau gunakan `npx`:
-```powershell
-npx gtunnel start -u myuser -k mykey --tunnel-name my-tunnel
-```
-
 ## Command Lainnya
 
 ### Cek Status Tunnel
