@@ -1,0 +1,74 @@
+# Advanced Configuration Example for GTunnel
+
+# Server Configuration
+server:
+  host: 0.0.0.0
+  port: 8080
+  tls:
+    enabled: true
+    cert: /etc/gtunnel/certs/server.crt
+    key: /etc/gtunnel/certs/server.key
+    ca: /etc/gtunnel/certs/ca.crt
+    minVersion: TLSv1.3
+    rejectUnauthorized: true
+
+# Authentication Configuration
+auth:
+  apiKey:
+    enabled: true
+    keys:
+      - name: production
+        key: ${GTUNNEL_API_KEY_PROD}
+      - name: staging
+        key: ${GTUNNEL_API_KEY_STAGING}
+      - name: development
+        key: ${GTUNNEL_API_KEY_DEV}
+  
+  # IP Whitelisting - only allow these IPs
+  ipWhitelist:
+    - 192.168.1.0/24    # Local network
+    - 10.0.0.0/8        # Private network
+    - 172.16.0.0/12     # Private network
+  
+  # IP Blacklisting - block these IPs
+  ipBlacklist:
+    - 203.0.113.0/24    # Blocked range
+    - 198.51.100.50     # Specific blocked IP
+
+# Performance Configuration
+performance:
+  connectionPool:
+    maxSize: 200        # Maximum connections in pool
+    minSize: 20         # Minimum connections maintained
+    idleTimeout: 30000  # Idle timeout in milliseconds
+  
+  compression: true     # Enable WebSocket compression
+  keepAlive: true       # Enable TCP keep-alive
+  http2: true           # Enable HTTP/2 support
+  maxConnections: 2000  # Maximum concurrent connections
+
+# Monitoring Configuration
+monitoring:
+  # Prometheus Metrics
+  metrics:
+    enabled: true
+    port: 9090
+  
+  # Web Dashboard
+  dashboard:
+    enabled: true
+    port: 8081
+  
+  # Logging Configuration
+  logging:
+    level: info         # Levels: debug, info, warn, error
+    format: json        # Formats: json, text
+    file: /var/log/gtunnel/gtunnel.log
+
+# Sauce Labs Configuration
+sauceLabs:
+  compatible: true
+  tunnelId: ${SAUCE_TUNNEL_ID}
+  region: us-west-1
+  username: ${SAUCE_USERNAME}
+  accessKey: ${SAUCE_ACCESS_KEY}
