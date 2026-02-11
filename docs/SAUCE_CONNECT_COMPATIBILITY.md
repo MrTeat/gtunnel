@@ -172,7 +172,7 @@ start -u oauth-wfuller894-22ca3 -k a19e5030-ec22-4eb4-a5d9-29ca7c15e6db --region
 gtunnel start -u oauth-wfuller894-22ca3 -k a19e5030-ec22-4eb4-a5d9-29ca7c15e6db --region us-west --tunnel-name my-tunnel
 ```
 
-### Windows: "gtunnel is not recognized"
+### Windows: 'gtunnel is not recognized'
 
 If you see:
 ```

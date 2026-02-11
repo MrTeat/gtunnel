@@ -12,6 +12,7 @@ $gtunnelExists = Get-Command gtunnel -ErrorAction SilentlyContinue
 if ($gtunnelExists) {
     # gtunnel is installed, use it directly
     & gtunnel start @Arguments
+    exit $LASTEXITCODE
 } else {
     # gtunnel not found, try using npx
     Write-Host "gtunnel not found in PATH, using npx..." -ForegroundColor Yellow
@@ -32,5 +33,34 @@ if ($gtunnelExists) {
         exit 1
     }
     
-    & npx gtunnel start @Arguments
+    try {
+        & npx gtunnel start @Arguments
+        $exitCode = $LASTEXITCODE
+        
+        if ($exitCode -ne 0) {
+            Write-Host ""
+            Write-Host "Error: Failed to run gtunnel via npx (exit code: $exitCode)." -ForegroundColor Red
+            Write-Host ""
+            Write-Host "This could be due to:"
+            Write-Host "  - Network connectivity issues"
+            Write-Host "  - npm package registry problems"
+            Write-Host "  - Invalid gtunnel package"
+            Write-Host ""
+            Write-Host "Try:"
+            Write-Host "  1. Check your internet connection"
+            Write-Host "  2. Install gtunnel globally: npm install -g gtunnel"
+            Write-Host "  3. Clear npm cache: npm cache clean --force"
+        }
+        
+        exit $exitCode
+    } catch {
+        Write-Host ""
+        Write-Host "Error: Failed to execute npx." -ForegroundColor Red
+        Write-Host "Exception: $($_.Exception.Message)"
+        Write-Host ""
+        Write-Host "Try:"
+        Write-Host "  1. Reinstall Node.js from https://nodejs.org/"
+        Write-Host "  2. Restart your terminal/PowerShell"
+        exit 1
+    }
 }

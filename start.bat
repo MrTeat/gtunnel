@@ -7,6 +7,7 @@ where gtunnel >nul 2>&1
 if %ERRORLEVEL% EQU 0 (
     REM gtunnel is installed, use it directly
     gtunnel start %*
+    exit /b %ERRORLEVEL%
 ) else (
     REM gtunnel not found, try using npx
     echo gtunnel not found in PATH, using npx...
@@ -27,4 +28,19 @@ if %ERRORLEVEL% EQU 0 (
     )
     
     npx gtunnel start %*
+    if %ERRORLEVEL% NEQ 0 (
+        echo.
+        echo Error: Failed to run gtunnel via npx.
+        echo.
+        echo This could be due to:
+        echo   - Network connectivity issues
+        echo   - npm package registry problems
+        echo   - Invalid gtunnel package
+        echo.
+        echo Try:
+        echo   1. Check your internet connection
+        echo   2. Install gtunnel globally: npm install -g gtunnel
+        echo   3. Clear npm cache: npm cache clean --force
+        exit /b %ERRORLEVEL%
+    )
 )
