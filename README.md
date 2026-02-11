@@ -62,8 +62,12 @@ npm install -g gtunnel
 gtunnel start
 ```
 
-### Start with Sauce Labs compatibility
+### Start with Sauce Labs (Sauce Connect Compatible)
 ```bash
+# Use Sauce Connect compatible command format
+gtunnel start -u YOUR_USERNAME -k YOUR_ACCESS_KEY --region us-west --tunnel-name my-tunnel
+
+# Or use the original format
 gtunnel start --sauce-labs --api-key YOUR_API_KEY --tunnel-id my-tunnel
 ```
 
@@ -71,6 +75,8 @@ gtunnel start --sauce-labs --api-key YOUR_API_KEY --tunnel-id my-tunnel
 ```bash
 gtunnel start --config ./gtunnel.config.yml
 ```
+
+> **Note**: GTunnel is fully compatible with Sauce Connect command-line options. See [Sauce Connect Compatibility Guide](docs/SAUCE_CONNECT_COMPATIBILITY.md) for details.
 
 ## CLI Commands
 
@@ -86,9 +92,18 @@ Options:
   --cert <path>          TLS certificate path
   --key <path>           TLS key path
   --api-key <key>        API key for authentication
+  -k <key>               API key (Sauce Connect compatible)
   --sauce-labs           Enable Sauce Labs compatibility mode
   --tunnel-id <id>       Sauce Labs tunnel ID
+  --tunnel-name <name>   Sauce Labs tunnel name (alias for tunnel-id)
+  -u, --user <username>  Sauce Labs username
+  --region <region>      Sauce Labs region (us-west, eu-central, etc.)
   -d, --daemon           Run as daemon
+```
+
+**Sauce Connect Compatible Format:**
+```bash
+gtunnel start -u <username> -k <access-key> --region <region> --tunnel-name <tunnel-name>
 ```
 
 ### Stop Tunnel

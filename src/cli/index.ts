@@ -28,8 +28,12 @@ program
   .option('--cert <path>', 'TLS certificate path')
   .option('--key <path>', 'TLS key path')
   .option('--api-key <key>', 'API key for authentication')
+  .option('-k <key>', 'API key (Sauce Connect compatible alias)')
   .option('--sauce-labs', 'Enable Sauce Labs compatibility mode')
   .option('--tunnel-id <id>', 'Sauce Labs tunnel ID')
+  .option('--tunnel-name <name>', 'Sauce Labs tunnel name (alias for tunnel-id)')
+  .option('-u, --user <username>', 'Sauce Labs username')
+  .option('--region <region>', 'Sauce Labs region (e.g., us-west, eu-central)')
   .option('-d, --daemon', 'Run as daemon')
   .action(startCommand);
 

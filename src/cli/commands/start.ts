@@ -13,8 +13,12 @@ interface StartOptions {
   cert?: string;
   key?: string;
   apiKey?: string;
+  k?: string;  // Sauce Connect compatible alias for apiKey
   sauceLabs?: boolean;
   tunnelId?: string;
+  tunnelName?: string;  // Sauce Connect compatible alias for tunnelId
+  user?: string;  // Sauce Labs username
+  region?: string;  // Sauce Labs region
   daemon?: boolean;
 }
 
@@ -64,20 +68,32 @@ export async function startCommand(options: StartOptions): Promise<void> {
       };
     }
     
-    if (options.apiKey) {
+    // Handle API key - support both --api-key and -k (Sauce Connect compatible)
+    const apiKey = options.apiKey || options.k;
+    if (apiKey) {
       cliConfig.auth = {
         ...configLoader.getConfig().auth,
         apiKey: {
           enabled: true,
-          keys: [{ name: 'cli', key: options.apiKey }],
+          keys: [{ name: 'cli', key: apiKey }],
         },
       };
     }
     
-    if (options.sauceLabs) {
+    // Handle Sauce Labs options
+    // If -u, -k, --region, or --tunnel-name are provided, enable Sauce Labs mode automatically
+    const useSauceLabs = options.sauceLabs || options.user || options.k || options.region || options.tunnelName;
+    
+    if (useSauceLabs) {
+      // Use --tunnel-name if provided, otherwise --tunnel-id
+      const tunnelIdentifier = options.tunnelName || options.tunnelId;
+      
       cliConfig.sauceLabs = {
         compatible: true,
-        tunnelId: options.tunnelId,
+        tunnelId: tunnelIdentifier,
+        username: options.user,
+        region: options.region,
+        accessKey: apiKey,  // Use the API key as access key for Sauce Labs
       };
     }
     
@@ -121,6 +137,21 @@ export async function startCommand(options: StartOptions): Promise<void> {
     console.log(`  Server:    ${info.tls ? 'https' : 'http'}://${info.host}:${info.port}`);
     console.log(`  Dashboard: http://localhost:${config.monitoring.dashboard.port}`);
     console.log(`  Metrics:   http://localhost:${config.monitoring.metrics.port}/metrics`);
+    
+    // Show Sauce Labs configuration if enabled
+    if (config.sauceLabs.compatible) {
+      console.log('\n  Sauce Labs Mode: Enabled');
+      if (config.sauceLabs.username) {
+        console.log(`  Username:  ${config.sauceLabs.username}`);
+      }
+      if (config.sauceLabs.tunnelId) {
+        console.log(`  Tunnel:    ${config.sauceLabs.tunnelId}`);
+      }
+      if (config.sauceLabs.region) {
+        console.log(`  Region:    ${config.sauceLabs.region}`);
+      }
+    }
+    
     console.log('\nPress Ctrl+C to stop\n');
     
   } catch (error) {
