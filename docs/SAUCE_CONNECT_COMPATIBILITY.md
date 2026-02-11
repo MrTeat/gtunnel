@@ -1,5 +1,7 @@
 # Sauce Connect Compatible Commands
 
+> **⚠️ Windows Users**: Always use `gtunnel start`, NOT just `start`. See [Windows troubleshooting](#windows-the-system-cannot-find-the-file--u) if you encounter errors.
+
 GTunnel supports Sauce Connect compatible command-line options for easy migration.
 
 ## Command Format Comparison

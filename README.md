@@ -57,6 +57,8 @@ npm install -g gtunnel
 
 ## Quick Start
 
+> **⚠️ Windows Users**: Always use `gtunnel start`, NOT just `start`. See [Windows troubleshooting](#windows-the-system-cannot-find-the-file--u) if you encounter errors.
+
 ### Start the tunnel with default settings
 ```bash
 gtunnel start
@@ -310,14 +312,16 @@ If you see this error on Windows:
 The system cannot find the file -u.
 ```
 
-This error means you're using the Windows `start` command instead of `gtunnel start`. 
+**Root Cause:** This error means you're using the Windows built-in `start` command instead of `gtunnel start`. Windows has a native `start` command that launches programs or opens files. When you type `start -u ...`, Windows interprets `-u` as a filename and tries to open it, resulting in the error.
 
-**Incorrect (Windows interprets `start` as built-in command):**
+**Solution:** Always prefix the command with `gtunnel`:
+
+❌ **INCORRECT (missing `gtunnel` prefix):**
 ```bash
 start -u oauth-wfuller894-22ca3 -k a19e5030-ec22-4eb4-a5d9-29ca7c15e6db --region us-west --tunnel-name my-tunnel
 ```
 
-**Correct (use `gtunnel` command):**
+✅ **CORRECT:**
 ```bash
 gtunnel start -u oauth-wfuller894-22ca3 -k a19e5030-ec22-4eb4-a5d9-29ca7c15e6db --region us-west --tunnel-name my-tunnel
 ```

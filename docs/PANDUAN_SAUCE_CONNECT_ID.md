@@ -1,5 +1,7 @@
 # Panduan Penggunaan GTunnel dengan Format Sauce Connect
 
+> **⚠️ Pengguna Windows**: Selalu gunakan `gtunnel start`, BUKAN hanya `start`. Lihat [troubleshooting Windows](#windows-the-system-cannot-find-the-file--u) jika ada error.
+
 ## Pertanyaan Pengguna
 
 Sauce Labs menyarankan command:
