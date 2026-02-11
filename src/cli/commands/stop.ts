@@ -1,6 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
+const STOP_POLL_INTERVAL_MS = 500;
+const STOP_MAX_ATTEMPTS = 10;
+
 const PID_FILE = path.join(process.cwd(), '.gtunnel.pid');
 
 export async function stopCommand(): Promise<void> {
@@ -19,10 +22,10 @@ export async function stopCommand(): Promise<void> {
       
       // Wait for process to stop
       let attempts = 0;
-      while (attempts < 10) {
+      while (attempts < STOP_MAX_ATTEMPTS) {
         try {
           process.kill(pid, 0);  // Check if process exists
-          await new Promise(resolve => setTimeout(resolve, 500));
+          await new Promise(resolve => setTimeout(resolve, STOP_POLL_INTERVAL_MS));
           attempts++;
         } catch {
           // Process stopped
@@ -31,7 +34,7 @@ export async function stopCommand(): Promise<void> {
       }
       
       // Force kill if still running
-      if (attempts >= 10) {
+      if (attempts >= STOP_MAX_ATTEMPTS) {
         console.log('Process not responding, forcing stop...');
         process.kill(pid, 'SIGKILL');
       }

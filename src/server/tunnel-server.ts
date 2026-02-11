@@ -114,10 +114,19 @@ export class TunnelServer {
   }
 
   private handleRoot(_req: http.IncomingMessage, res: http.ServerResponse): void {
+    // Read version from package.json
+    let version = '1.0.0';
+    try {
+      const packageJson = require('../../package.json');
+      version = packageJson.version;
+    } catch {
+      version = process.env.npm_package_version || '1.0.0';
+    }
+
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ 
       service: 'gtunnel',
-      version: '1.0.0',
+      version,
       status: 'running',
     }));
   }

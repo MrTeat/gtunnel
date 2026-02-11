@@ -53,11 +53,21 @@ export class HealthCheck {
       }
     }
 
+    // Read version from package.json
+    let version = '1.0.0';
+    try {
+      const packageJson = require('../../package.json');
+      version = packageJson.version;
+    } catch {
+      // Fallback to env variable or default
+      version = process.env.npm_package_version || '1.0.0';
+    }
+
     return {
       status: allHealthy ? 'healthy' : 'unhealthy',
       uptime: Date.now() - this.startTime,
       timestamp: new Date().toISOString(),
-      version: process.env.npm_package_version || '1.0.0',
+      version,
       checks,
     };
   }

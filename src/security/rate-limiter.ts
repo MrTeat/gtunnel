@@ -1,5 +1,7 @@
 import { getLogger } from '../monitoring/logger';
 
+const CLEANUP_INTERVAL_MS = 60000;
+
 export interface RateLimitConfig {
   windowMs: number;  // Time window in milliseconds
   maxRequests: number;  // Max requests per window
@@ -14,13 +16,14 @@ export class RateLimiter {
   private config: RateLimitConfig;
   private clients: Map<string, RateLimitEntry>;
   private logger = getLogger();
+  private cleanupInterval: NodeJS.Timeout | null = null;
 
   constructor(config: RateLimitConfig = { windowMs: 60000, maxRequests: 100 }) {
     this.config = config;
     this.clients = new Map();
 
     // Clean up old entries every minute
-    setInterval(() => this.cleanup(), 60000);
+    this.cleanupInterval = setInterval(() => this.cleanup(), CLEANUP_INTERVAL_MS);
   }
 
   /**
@@ -74,6 +77,17 @@ export class RateLimiter {
         this.clients.delete(clientId);
       }
     }
+  }
+
+  /**
+   * Destroy the rate limiter and clean up resources
+   */
+  destroy(): void {
+    if (this.cleanupInterval) {
+      clearInterval(this.cleanupInterval);
+      this.cleanupInterval = null;
+    }
+    this.clients.clear();
   }
 
   /**

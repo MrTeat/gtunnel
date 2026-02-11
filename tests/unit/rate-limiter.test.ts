@@ -62,4 +62,15 @@ describe('RateLimiter', () => {
       expect(result.remaining).toBe(2);
     });
   });
+
+  describe('destroy', () => {
+    it('should clean up resources', () => {
+      rateLimiter.destroy();
+      expect(rateLimiter).toBeDefined();
+    });
+  });
+
+  afterEach(() => {
+    rateLimiter.destroy();
+  });
 });
