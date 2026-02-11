@@ -42,17 +42,18 @@ export class ConfigLoader {
     const envConfig: Partial<GTunnelConfig> = {};
 
     // Server config
+    const serverConfig: any = {};
     if (process.env.GTUNNEL_HOST) {
-      envConfig.server = { ...this.config.server, host: process.env.GTUNNEL_HOST };
+      serverConfig.host = process.env.GTUNNEL_HOST;
     }
     if (process.env.GTUNNEL_PORT) {
-      envConfig.server = { ...this.config.server, port: parseInt(process.env.GTUNNEL_PORT) };
+      serverConfig.port = parseInt(process.env.GTUNNEL_PORT);
     }
     if (process.env.GTUNNEL_TLS_ENABLED) {
-      envConfig.server = {
-        ...this.config.server,
-        tls: { ...this.config.server.tls, enabled: process.env.GTUNNEL_TLS_ENABLED === 'true' },
-      };
+      serverConfig.tls = { ...this.config.server.tls, enabled: process.env.GTUNNEL_TLS_ENABLED === 'true' };
+    }
+    if (Object.keys(serverConfig).length > 0) {
+      envConfig.server = { ...this.config.server, ...serverConfig };
     }
 
     // Auth config

@@ -10,6 +10,7 @@ build/
 *.js.map
 *.d.ts
 !jest.config.js
+!examples/**/*.js
 
 # Logs
 logs/
