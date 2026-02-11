@@ -1,6 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as http from 'http';
+import * as https from 'https';
+import { getConfigLoader } from '../../config/config-loader';
 
 const PID_FILE = path.join(process.cwd(), '.gtunnel.pid');
 
@@ -27,7 +29,24 @@ export async function statusCommand(): Promise<void> {
     
     // Try to get more info from health endpoint
     try {
-      const health = await fetchHealth();
+      const configLoader = getConfigLoader();
+      const configPath = path.join(process.cwd(), 'gtunnel.config.yml');
+      if (fs.existsSync(configPath)) {
+        configLoader.loadFromFile(configPath);
+      }
+      configLoader.loadFromEnv();
+      const config = configLoader.getConfig();
+
+      const host = (config.server.host === '0.0.0.0' || config.server.host === '::')
+        ? 'localhost'
+        : config.server.host;
+      const protocol = config.server.tls.enabled ? 'https' : 'http';
+      const healthUrl = `${protocol}://${host}:${config.server.port}/health`;
+      const apiKey = config.auth.apiKey.enabled && config.auth.apiKey.keys.length > 0
+        ? config.auth.apiKey.keys[0].key
+        : undefined;
+
+      const health = await fetchHealth(healthUrl, apiKey);
       console.log('\nHealth Check:');
       console.log(`  Status: ${health.status}`);
       console.log(`  Uptime: ${Math.floor(health.uptime / 1000)}s`);
@@ -48,16 +67,21 @@ export async function statusCommand(): Promise<void> {
   }
 }
 
-function fetchHealth(): Promise<any> {
+function fetchHealth(url: string, apiKey?: string): Promise<any> {
   return new Promise((resolve, reject) => {
-    const req = http.get('http://localhost:8080/health', (res) => {
+    const target = new URL(url);
+    const client = target.protocol === 'https:' ? https : http;
+
+    const req = client.get(target, {
+      headers: apiKey ? { Authorization: `Bearer ${apiKey}` } : undefined,
+    }, (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
         try {
           resolve(JSON.parse(data));
         } catch {
-          reject(new Error('Invalid response'));
+          reject(new Error(`Invalid response (status ${res.statusCode})`));
         }
       });
     });

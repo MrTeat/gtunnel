@@ -51,6 +51,11 @@ export class ApiKeyAuth {
    */
   middleware() {
     return (req: any, res: any, next: any) => {
+      const path = (req.url || '').split('?')[0];
+      if (path === '/health' || path === '/ready') {
+        return next();
+      }
+
       if (!this.config.enabled) {
         return next();
       }
