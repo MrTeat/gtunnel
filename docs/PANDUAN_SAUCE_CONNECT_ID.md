@@ -90,6 +90,48 @@ Selain kompatibilitas dengan Sauce Connect, GTunnel juga menyediakan:
 2. **Metrics Prometheus**: http://localhost:9090/metrics
 3. **Health Check**: http://localhost:8080/health
 
+## Troubleshooting (Pemecahan Masalah)
+
+### Windows: "The system cannot find the file -u"
+
+Jika Anda mengalami error ini di Windows:
+```
+The system cannot find the file -u.
+```
+
+Ini terjadi ketika Anda menggunakan command `start` Windows bawaan, bukan `gtunnel start`.
+
+**Masalah:** Windows memiliki command bawaan `start` untuk membuka program/file. Ketika Anda mengetik `start -u ...`, Windows mencoba membuka file bernama "-u".
+
+**Solusi:** Selalu gunakan prefix `gtunnel`:
+
+❌ **SALAH (tanpa `gtunnel`):**
+```bash
+start -u oauth-wfuller894-22ca3 -k a19e5030-ec22-4eb4-a5d9-29ca7c15e6db --region us-west --tunnel-name my-tunnel
+```
+
+✅ **BENAR:**
+```bash
+gtunnel start -u oauth-wfuller894-22ca3 -k a19e5030-ec22-4eb4-a5d9-29ca7c15e6db --region us-west --tunnel-name my-tunnel
+```
+
+### Windows Command Prompt vs PowerShell
+
+**Command Prompt (cmd.exe):**
+```cmd
+gtunnel start -u myuser -k mykey --tunnel-name my-tunnel
+```
+
+**PowerShell:**
+```powershell
+gtunnel start -u myuser -k mykey --tunnel-name my-tunnel
+```
+
+Jika `gtunnel` tidak dikenali, pastikan npm global binaries ada di PATH atau gunakan `npx`:
+```powershell
+npx gtunnel start -u myuser -k mykey --tunnel-name my-tunnel
+```
+
 ## Command Lainnya
 
 ### Cek Status Tunnel
