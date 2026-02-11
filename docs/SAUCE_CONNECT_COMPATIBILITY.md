@@ -154,7 +154,7 @@ If you encounter this error on Windows:
 The system cannot find the file -u.
 ```
 
-This occurs when using the Windows built-in `start` command instead of the `gtunnel start` command.
+This error occurs when using the Windows built-in `start` command instead of the `gtunnel start` command.
 
 **Problem:** Windows has a built-in `start` command that opens programs/files. When you type `start -u ...`, Windows tries to open a file called "-u".
 

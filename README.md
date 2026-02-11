@@ -310,7 +310,7 @@ If you see this error on Windows:
 The system cannot find the file -u.
 ```
 
-This means you're using the Windows `start` command instead of `gtunnel start`. 
+This error means you're using the Windows `start` command instead of `gtunnel start`. 
 
 **Incorrect (Windows interprets `start` as built-in command):**
 ```bash
