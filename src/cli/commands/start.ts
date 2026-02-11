@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { TunnelServer } from '../../server/tunnel-server';
-import { ConfigLoader, getConfigLoader } from '../../config/config-loader';
+import { getConfigLoader } from '../../config/config-loader';
 import { getLogger } from '../../monitoring/logger';
 import { GTunnelConfig } from '../../config/types';
 

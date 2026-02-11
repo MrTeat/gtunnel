@@ -1,5 +1,7 @@
 # Sauce Connect Compatible Commands
 
+> **⚠️ Windows Users**: Always use `gtunnel start`, NOT just `start`. See [Windows troubleshooting](#windows-the-system-cannot-find-the-file--u) if you encounter errors.
+
 GTunnel supports Sauce Connect compatible command-line options for easy migration.
 
 ## Command Format Comparison
@@ -170,6 +172,30 @@ start -u oauth-wfuller894-22ca3 -k a19e5030-ec22-4eb4-a5d9-29ca7c15e6db --region
 gtunnel start -u oauth-wfuller894-22ca3 -k a19e5030-ec22-4eb4-a5d9-29ca7c15e6db --region us-west --tunnel-name my-tunnel
 ```
 
+### Windows: 'gtunnel is not recognized'
+
+If you see:
+```
+'gtunnel' is not recognized as an internal or external command
+```
+
+**Solutions:**
+
+1. **Install globally and restart terminal:**
+   ```bash
+   npm install -g gtunnel
+   ```
+   Then close and reopen your terminal.
+
+2. **Use npx (no installation needed):**
+   ```bash
+   npx gtunnel start -u myuser -k mykey --tunnel-name my-tunnel
+   ```
+
+3. **Use helper scripts** (they auto-detect and use npx if needed):
+   - `start.bat` for Command Prompt
+   - `start.ps1` for PowerShell
+
 ### Windows Command Prompt vs PowerShell
 
 **Command Prompt (cmd.exe):**
@@ -182,7 +208,7 @@ gtunnel start -u myuser -k mykey --tunnel-name my-tunnel
 gtunnel start -u myuser -k mykey --tunnel-name my-tunnel
 ```
 
-If `gtunnel` is not recognized, ensure npm global binaries are in your PATH or use `npx`:
+If `gtunnel` is not recognized, use `npx`:
 ```powershell
 npx gtunnel start -u myuser -k mykey --tunnel-name my-tunnel
 ```
