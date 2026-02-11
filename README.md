@@ -55,6 +55,21 @@ GTunnel is a production-ready, high-performance tunnel solution fully compatible
 npm install -g gtunnel
 ```
 
+### Windows Users
+
+After installation, you can either:
+
+1. **Use the gtunnel command directly** (recommended):
+   ```bash
+   gtunnel start -u myuser -k mykey
+   ```
+
+2. **Use the included helper scripts** for convenience:
+   - `start.bat` for Command Prompt
+   - `start.ps1` for PowerShell
+   
+   These scripts ensure the command is properly invoked and provide helpful error messages.
+
 ## Quick Start
 
 > **⚠️ Windows Users**: Always use `gtunnel start`, NOT just `start`. See [Windows troubleshooting](#windows-the-system-cannot-find-the-file--u) if you encounter errors.
@@ -340,6 +355,22 @@ Or ensure the npm global binaries directory is in your PATH:
 npm config get prefix
 # Add the returned path\node_modules\.bin to your PATH
 ```
+
+**Alternative: Use the included helper scripts**
+
+For convenience, GTunnel includes Windows helper scripts that handle the proper command invocation:
+
+**Command Prompt (cmd.exe):**
+```cmd
+start.bat -u myuser -k mykey --tunnel-name my-tunnel
+```
+
+**PowerShell:**
+```powershell
+.\start.ps1 -u myuser -k mykey --tunnel-name my-tunnel
+```
+
+These scripts ensure `gtunnel start` is properly invoked and provide helpful error messages if gtunnel is not installed.
 
 ## Support
 
