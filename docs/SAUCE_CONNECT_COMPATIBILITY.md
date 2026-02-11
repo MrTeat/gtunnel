@@ -147,6 +147,46 @@ Export metrics at `http://localhost:9090/metrics`
 
 ## Troubleshooting
 
+### Windows: "The system cannot find the file -u"
+
+If you encounter this error on Windows:
+```
+The system cannot find the file -u.
+```
+
+This error occurs when using the Windows built-in `start` command instead of the `gtunnel start` command.
+
+**Problem:** Windows has a built-in `start` command that opens programs/files. When you type `start -u ...`, Windows tries to open a file called "-u".
+
+**Solution:** Always prefix the command with `gtunnel`:
+
+❌ **INCORRECT (missing `gtunnel`):**
+```bash
+start -u oauth-wfuller894-22ca3 -k a19e5030-ec22-4eb4-a5d9-29ca7c15e6db --region us-west --tunnel-name my-tunnel
+```
+
+✅ **CORRECT:**
+```bash
+gtunnel start -u oauth-wfuller894-22ca3 -k a19e5030-ec22-4eb4-a5d9-29ca7c15e6db --region us-west --tunnel-name my-tunnel
+```
+
+### Windows Command Prompt vs PowerShell
+
+**Command Prompt (cmd.exe):**
+```cmd
+gtunnel start -u myuser -k mykey --tunnel-name my-tunnel
+```
+
+**PowerShell:**
+```powershell
+gtunnel start -u myuser -k mykey --tunnel-name my-tunnel
+```
+
+If `gtunnel` is not recognized, ensure npm global binaries are in your PATH or use `npx`:
+```powershell
+npx gtunnel start -u myuser -k mykey --tunnel-name my-tunnel
+```
+
 ### Check Tunnel Status
 ```bash
 gtunnel status

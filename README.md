@@ -301,6 +301,42 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 MIT
 
+## Troubleshooting
+
+### Windows: "The system cannot find the file -u"
+
+If you see this error on Windows:
+```
+The system cannot find the file -u.
+```
+
+This error means you're using the Windows `start` command instead of `gtunnel start`. 
+
+**Incorrect (Windows interprets `start` as built-in command):**
+```bash
+start -u oauth-wfuller894-22ca3 -k a19e5030-ec22-4eb4-a5d9-29ca7c15e6db --region us-west --tunnel-name my-tunnel
+```
+
+**Correct (use `gtunnel` command):**
+```bash
+gtunnel start -u oauth-wfuller894-22ca3 -k a19e5030-ec22-4eb4-a5d9-29ca7c15e6db --region us-west --tunnel-name my-tunnel
+```
+
+The `gtunnel` prefix is required to invoke the GTunnel CLI tool.
+
+### Windows PowerShell Note
+
+When using PowerShell on Windows, you may need to use:
+```powershell
+npx gtunnel start -u <username> -k <access-key> --region us-west --tunnel-name my-tunnel
+```
+
+Or ensure the npm global binaries directory is in your PATH:
+```powershell
+npm config get prefix
+# Add the returned path\node_modules\.bin to your PATH
+```
+
 ## Support
 
 For issues and questions, please file an issue on the [GitHub repository](https://github.com/MrTeat/gtunnel/issues).
