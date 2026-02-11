@@ -11,6 +11,7 @@ $gtunnelExists = Get-Command gtunnel -ErrorAction SilentlyContinue
 
 if ($gtunnelExists) {
     # gtunnel is installed, use it directly
+    # @Arguments uses PowerShell splatting to properly forward all arguments including those with spaces
     & gtunnel start @Arguments
     exit $LASTEXITCODE
 } else {

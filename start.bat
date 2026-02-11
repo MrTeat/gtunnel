@@ -28,9 +28,10 @@ if %ERRORLEVEL% EQU 0 (
     )
     
     npx gtunnel start %*
-    if %ERRORLEVEL% NEQ 0 (
+    set NPX_EXIT=%ERRORLEVEL%
+    if %NPX_EXIT% NEQ 0 (
         echo.
-        echo Error: Failed to run gtunnel via npx.
+        echo Error: Failed to run gtunnel via npx (exit code: %NPX_EXIT%).
         echo.
         echo This could be due to:
         echo   - Network connectivity issues
@@ -41,6 +42,6 @@ if %ERRORLEVEL% EQU 0 (
         echo   1. Check your internet connection
         echo   2. Install gtunnel globally: npm install -g gtunnel
         echo   3. Clear npm cache: npm cache clean --force
-        exit /b %ERRORLEVEL%
+        exit /b %NPX_EXIT%
     )
 )
