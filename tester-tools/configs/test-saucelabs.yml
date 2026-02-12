@@ -1,0 +1,53 @@
+# Test Configuration for Sauce Labs Integration
+# Use this configuration for testing Sauce Labs compatibility
+
+server:
+  host: 0.0.0.0
+  port: 8080
+  tls:
+    enabled: false
+
+auth:
+  apiKey:
+    enabled: true
+    keys:
+      - name: sauce-labs-test
+        key: your-sauce-access-key
+
+performance:
+  connectionPool:
+    maxSize: 100
+    minSize: 10
+    idleTimeout: 30000
+  compression: true
+  keepAlive: true
+  http2: true
+  maxConnections: 1000
+
+monitoring:
+  metrics:
+    enabled: true
+    port: 9090
+  dashboard:
+    enabled: true
+    port: 8081
+  logging:
+    level: info
+    format: json
+
+sauceLabs:
+  compatible: true
+  tunnelId: my-test-tunnel
+  username: your-sauce-username
+  accessKey: your-sauce-access-key
+  region: us-west
+
+security:
+  rateLimit:
+    enabled: true
+    maxRequests: 200
+    windowMs: 60000
+  ipFilter:
+    enabled: false
+    whitelist: []
+    blacklist: []

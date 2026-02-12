@@ -1,0 +1,48 @@
+# Test Configuration for Development Environment
+# Use this configuration for local testing before Google approval
+
+server:
+  host: 0.0.0.0
+  port: 8080
+  tls:
+    enabled: false
+    minVersion: TLSv1.3
+
+auth:
+  apiKey:
+    enabled: false
+    keys: []
+
+performance:
+  connectionPool:
+    maxSize: 50
+    minSize: 5
+    idleTimeout: 30000
+  compression: true
+  keepAlive: true
+  http2: true
+  maxConnections: 500
+
+monitoring:
+  metrics:
+    enabled: true
+    port: 9090
+  dashboard:
+    enabled: true
+    port: 8081
+  logging:
+    level: debug
+    format: json
+
+sauceLabs:
+  compatible: false
+
+security:
+  rateLimit:
+    enabled: true
+    maxRequests: 100
+    windowMs: 60000
+  ipFilter:
+    enabled: false
+    whitelist: []
+    blacklist: []
