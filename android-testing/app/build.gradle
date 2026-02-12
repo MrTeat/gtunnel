@@ -8,7 +8,7 @@ android {
     
     defaultConfig {
         applicationId "com.gtunnel.test"
-        minSdk 26  // Android 8.0 (API level 26) supports Android 10-13
+        minSdk 26  // Android 8.0 minimum; tested on Android 10-13 (API 29-33)
         targetSdk 34
         versionCode 1
         versionName "1.0"
