@@ -1,0 +1,114 @@
+# Device Configuration for Testing
+# Configure test devices for automated testing
+
+devices:
+  - id: "device1"
+    name: "Samsung Galaxy S21"
+    manufacturer: "Samsung"
+    model: "SM-G991B"
+    type: "smartphone"
+    android_version: "13"
+    api_level: 33
+    screen_size: "6.2 inches"
+    resolution: "2400x1080"
+    enabled: true
+    
+  - id: "device2"
+    name: "Google Pixel 6"
+    manufacturer: "Google"
+    model: "Pixel 6"
+    type: "smartphone"
+    android_version: "13"
+    api_level: 33
+    screen_size: "6.4 inches"
+    resolution: "2400x1080"
+    enabled: true
+    
+  - id: "device3"
+    name: "Samsung Galaxy Tab S8"
+    manufacturer: "Samsung"
+    model: "SM-X706B"
+    type: "tablet"
+    android_version: "12"
+    api_level: 32
+    screen_size: "11 inches"
+    resolution: "2560x1600"
+    enabled: true
+    
+  - id: "device4"
+    name: "OnePlus 9 Pro"
+    manufacturer: "OnePlus"
+    model: "LE2123"
+    type: "smartphone"
+    android_version: "12"
+    api_level: 31
+    screen_size: "6.7 inches"
+    resolution: "3216x1440"
+    enabled: true
+    
+  - id: "device5"
+    name: "Xiaomi Pad 5"
+    manufacturer: "Xiaomi"
+    model: "21051182G"
+    type: "tablet"
+    android_version: "11"
+    api_level: 30
+    screen_size: "11 inches"
+    resolution: "2560x1600"
+    enabled: true
+    
+  - id: "device6"
+    name: "Motorola Edge 30"
+    manufacturer: "Motorola"
+    model: "XT2203-1"
+    type: "smartphone"
+    android_version: "12"
+    api_level: 31
+    screen_size: "6.5 inches"
+    resolution: "2400x1080"
+    enabled: true
+
+# Test configuration
+test_config:
+  # Number of test runs per day
+  runs_per_day: 4
+  
+  # Duration of entire testing period (days)
+  testing_duration: 14
+  
+  # Wait time between runs (hours)
+  wait_time_hours: 6
+  
+  # Screenshot settings
+  screenshots:
+    on_failure: true
+    on_success: false
+    quality: 90
+    format: "PNG"
+    
+  # Logging settings
+  logging:
+    level: "INFO"  # DEBUG, INFO, WARN, ERROR
+    format: "json"
+    save_to_device: true
+    save_to_host: true
+    
+  # Report settings
+  reports:
+    generate_json: true
+    generate_csv: true
+    generate_html: false
+    consolidate_daily: true
+    consolidate_final: true
+    
+  # Retry settings
+  retry:
+    enabled: true
+    max_attempts: 3
+    delay_seconds: 30
+    
+  # Cleanup settings
+  cleanup:
+    clear_app_data_before_test: true
+    remove_old_screenshots_days: 7
+    remove_old_reports_days: 30

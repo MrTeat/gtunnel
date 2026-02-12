@@ -315,9 +315,11 @@ GTunnel implements multiple security layers:
 
 ## Testing Tools for Google Developer Approval
 
-GTunnel includes comprehensive testing tools to validate the application before Google Developer approval submission.
+GTunnel includes comprehensive testing tools for both web applications and Android applications to validate before Google Developer approval submission.
 
-### Quick Test
+### Web Application Testing
+
+Quick validation for web/server applications:
 
 ```bash
 # Start GTunnel
@@ -327,36 +329,63 @@ npm start
 node tester-tools/scripts/run-all-tests.js
 ```
 
-This will run:
+**Features:**
 - ✅ Health Check Validation
-- ✅ API Functionality Tests
-- ✅ Performance Tests
+- ✅ API Functionality Tests  
+- ✅ Performance Tests with rate limit handling
+- ✅ Automated report generation (JSON)
+- ✅ Bilingual documentation (English + Indonesian)
 
-### Individual Tests
+**Documentation:**
+- [Testing Tools README](tester-tools/README.md)
+- [Testing Guide](tester-tools/docs/TESTING_GUIDE.md) (English + Indonesian)
+- [Quick Start](tester-tools/docs/QUICK_START.md)
+
+### Android Application Testing  
+
+Comprehensive 14-day automation testing for Android apps:
 
 ```bash
-# Health checks only
-node tester-tools/scripts/health-check-validator.js
+cd android-testing/app
 
-# API tests only
-node tester-tools/scripts/api-tester.js
+# Build test APKs
+./gradlew assembleDebug assembleDebugAndroidTest
 
-# Performance tests only
-node tester-tools/scripts/performance-tester.js
+# Run tests
+cd ../scripts
+./run_tests.sh                 # Quick test
+./run_14day_testing.sh         # 14-day continuous testing
 ```
 
-### Documentation
+**Features:**
+- ✅ Espresso & UIAutomator framework
+- ✅ Tests: install, login, navigation, input, logout
+- ✅ Multi-device support (smartphones & tablets)
+- ✅ Android 10-13 coverage (API 29-33)
+- ✅ Automatic screenshot capture on failures
+- ✅ Timestamped logging (pass/fail)
+- ✅ 14-day continuous testing with realistic simulation
+- ✅ JSON/CSV reports for Google Play Console
 
-- **[Testing Tools README](tester-tools/README.md)** - Complete testing tools overview
-- **[Testing Guide](tester-tools/docs/TESTING_GUIDE.md)** - Comprehensive guide (English + Indonesian)
-- **[Quick Start](tester-tools/docs/QUICK_START.md)** - Quick start for testers
+**Documentation:**
+- [Android Testing README](android-testing/README.md) (English + Indonesian)
+- Device configuration: `android-testing/configs/devices.yml`
+- Test suite: `android-testing/app/src/androidTest/`
 
 ### Test Configurations
 
 Pre-configured test scenarios:
-- `tester-tools/configs/test-development.yml` - Development environment
+
+**Web Testing:**
+- `tester-tools/configs/test-development.yml` - Development
 - `tester-tools/configs/test-production.yml` - Production simulation
 - `tester-tools/configs/test-saucelabs.yml` - Sauce Labs integration
+- `tester-tools/configs/test-no-rate-limit.yml` - No rate limiting
+
+**Android Testing:**
+- `android-testing/configs/devices.yml` - Device configuration
+- Supports multiple devices and Android versions
+- Configurable test frequency and duration
 
 ## Development
 
