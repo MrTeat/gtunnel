@@ -1,0 +1,23 @@
+{
+  "healthCheck": {
+    "script": "Health Check Validator",
+    "success": true,
+    "exitCode": 0,
+    "duration": "0.04s"
+  },
+  "apiTest": {
+    "script": "API Tester",
+    "success": false,
+    "exitCode": 1,
+    "duration": "0.05s"
+  },
+  "performanceTest": {
+    "script": "Performance Tester",
+    "success": true,
+    "exitCode": 0,
+    "duration": "30.11s"
+  },
+  "startTime": "2026-02-12T22:08:18.623Z",
+  "endTime": "2026-02-12T22:08:48.837Z",
+  "overallStatus": "failed"
+}

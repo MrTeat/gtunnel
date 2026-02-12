@@ -1,0 +1,48 @@
+# Test Configuration for Testing Tools
+# This configuration disables rate limiting for accurate testing
+
+server:
+  host: 0.0.0.0
+  port: 8080
+  tls:
+    enabled: false
+    minVersion: TLSv1.3
+
+auth:
+  apiKey:
+    enabled: false
+    keys: []
+
+performance:
+  connectionPool:
+    maxSize: 100
+    minSize: 10
+    idleTimeout: 30000
+  compression: true
+  keepAlive: true
+  http2: true
+  maxConnections: 1000
+
+monitoring:
+  metrics:
+    enabled: true
+    port: 9090
+  dashboard:
+    enabled: true
+    port: 8081
+  logging:
+    level: info
+    format: json
+
+sauceLabs:
+  compatible: false
+
+security:
+  rateLimit:
+    enabled: false  # Disabled for testing
+    maxRequests: 1000
+    windowMs: 60000
+  ipFilter:
+    enabled: false
+    whitelist: []
+    blacklist: []
