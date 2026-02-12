@@ -1,0 +1,58 @@
+# Test Configuration for Production Environment
+# Use this configuration to simulate production environment for Google approval
+
+server:
+  host: 0.0.0.0
+  port: 8080
+  tls:
+    enabled: true
+    minVersion: TLSv1.3
+    # Note: Provide actual certificate paths when testing with TLS
+    # cert: /path/to/cert.pem
+    # key: /path/to/key.pem
+
+auth:
+  apiKey:
+    enabled: true
+    keys:
+      - name: test-key
+        key: test-api-key-12345
+
+performance:
+  connectionPool:
+    maxSize: 100
+    minSize: 10
+    idleTimeout: 30000
+  compression: true
+  keepAlive: true
+  http2: true
+  maxConnections: 1000
+
+monitoring:
+  metrics:
+    enabled: true
+    port: 9090
+  dashboard:
+    enabled: true
+    port: 8081
+  logging:
+    level: info
+    format: json
+
+sauceLabs:
+  compatible: true
+  tunnelId: test-tunnel-prod
+  username: test-user
+  accessKey: test-access-key
+
+security:
+  rateLimit:
+    enabled: true
+    maxRequests: 100
+    windowMs: 60000
+  ipFilter:
+    enabled: true
+    whitelist:
+      - 127.0.0.1
+      - ::1
+    blacklist: []

@@ -313,6 +313,51 @@ GTunnel implements multiple security layers:
 - Request validation
 - Audit logging
 
+## Testing Tools for Google Developer Approval
+
+GTunnel includes comprehensive testing tools to validate the application before Google Developer approval submission.
+
+### Quick Test
+
+```bash
+# Start GTunnel
+npm start
+
+# Run all tests (in another terminal)
+node tester-tools/scripts/run-all-tests.js
+```
+
+This will run:
+- ✅ Health Check Validation
+- ✅ API Functionality Tests
+- ✅ Performance Tests
+
+### Individual Tests
+
+```bash
+# Health checks only
+node tester-tools/scripts/health-check-validator.js
+
+# API tests only
+node tester-tools/scripts/api-tester.js
+
+# Performance tests only
+node tester-tools/scripts/performance-tester.js
+```
+
+### Documentation
+
+- **[Testing Tools README](tester-tools/README.md)** - Complete testing tools overview
+- **[Testing Guide](tester-tools/docs/TESTING_GUIDE.md)** - Comprehensive guide (English + Indonesian)
+- **[Quick Start](tester-tools/docs/QUICK_START.md)** - Quick start for testers
+
+### Test Configurations
+
+Pre-configured test scenarios:
+- `tester-tools/configs/test-development.yml` - Development environment
+- `tester-tools/configs/test-production.yml` - Production simulation
+- `tester-tools/configs/test-saucelabs.yml` - Sauce Labs integration
+
 ## Development
 
 ### Build from source
